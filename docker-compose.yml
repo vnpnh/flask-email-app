@@ -5,15 +5,6 @@ services:
       - "5000:5000"
     env_file:
       - .env
-    environment:
-      FLASK_ENV: development
-      MYSQL_HOST: mysql
-      MYSQL_PORT: 3306
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_DATABASE: email_app_db
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
     depends_on:
       mysql:
         condition: service_healthy
@@ -24,8 +15,8 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: flask_db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -38,6 +29,11 @@ services:
     restart: always
     ports:
       - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 volumes:
   mysql_data:
