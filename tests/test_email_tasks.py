@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 import pytz
 from flask import Flask
@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app.database import db
 from app.models import Email
 from app.tasks import send_scheduled_emails, send_single_email_task
+
 
 class TestEmailTasks(unittest.TestCase):
     def setUp(self):

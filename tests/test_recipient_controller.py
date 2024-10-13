@@ -1,11 +1,12 @@
 import unittest
-from unittest.mock import patch, MagicMock
-from flask import Flask
 from http import HTTPStatus
+from unittest.mock import MagicMock, patch
 
+from flask import Flask
 from marshmallow import ValidationError
 
 from app.controllers.recipient_controller import RecipientController
+
 
 class TestRecipientController(unittest.TestCase):
     def setUp(self):

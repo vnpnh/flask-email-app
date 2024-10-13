@@ -1,7 +1,9 @@
 import unittest
-from unittest.mock import patch, MagicMock
-from flask import Flask
 from http import HTTPStatus
+from unittest.mock import MagicMock, patch
+
+from flask import Flask
+
 from app.controllers.email_controller import EmailController
 
 
