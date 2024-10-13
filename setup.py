@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='flask-email-app',
-    version='0.0.1',
+    version='0.0.2',
     description='A simple email scheduling app built with Flask',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
