@@ -8,6 +8,7 @@
 - Redis >= 6.0.0
 - Mysql >= 8.0.0
 
+Import postman collection from `docs` folder to test the API.
 
 ## Installation
 
@@ -34,7 +35,7 @@ mysql -u root -p
 ```
 
 ```sql
-CREATE DATABASE event_api;
+CREATE DATABASE email_app_db;
 ``` 
 
 ### 5. Set up the environment variables
@@ -56,7 +57,7 @@ flask run
 
 ### 8. Run celery worker
 ```bash
-celery -A celery_worker worker --loglevel=info --pool=solo
+celery -A celery_worker.celery worker --loglevel=info --pool=solo
 ```
 
 ### 9. Run celery beat

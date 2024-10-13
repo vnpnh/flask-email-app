@@ -1,6 +1,8 @@
 from functools import wraps
+
 from flask import jsonify, request
 from marshmallow import ValidationError
+
 
 def safe_load(f):
     @wraps(f)

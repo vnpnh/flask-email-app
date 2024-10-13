@@ -7,6 +7,7 @@ class Recipient(BaseModel):
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
+    status = db.Column(db.String(20), default="scheduled", nullable=False)
 
 
     def to_dict(self):
@@ -14,6 +15,7 @@ class Recipient(BaseModel):
             'id': self.id,
             'user_id': self.user_id,
             'event_id': self.event_id,
+            'status': self.status,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
         }

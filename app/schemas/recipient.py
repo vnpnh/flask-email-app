@@ -1,6 +1,8 @@
-from marshmallow import Schema, fields, validates_schema, ValidationError, validates
-from app.models.recipient import Recipient
+from marshmallow import (Schema, ValidationError, fields, validates,
+                         validates_schema)
+
 from app.models.event import Event
+from app.models.recipient import Recipient
 from app.models.user import User
 
 
