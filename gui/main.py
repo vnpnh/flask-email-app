@@ -1,7 +1,8 @@
-import tkinter as tk
-from tkinter import ttk, messagebox
-import requests
 import os
+import tkinter as tk
+from tkinter import messagebox, ttk
+
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
