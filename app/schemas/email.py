@@ -1,4 +1,6 @@
-from marshmallow import Schema, fields, validates, ValidationError
+from marshmallow import Schema, ValidationError, fields, validates
+
+from app.database import db
 from app.models.event import Event
 
 
@@ -13,6 +15,6 @@ class EmailSchema(Schema):
     @validates('event_id')
     def validate_event_id(self, value):
         """Validate if the event_id exists in the database."""
-        event = Event.query.get(value)
+        event = db.session.get(Event, value)
         if not event:
             raise ValidationError(f"Event with id {value} does not exist.")

@@ -1,7 +1,6 @@
 from http import HTTPStatus
 
-from flask import request, jsonify
-from marshmallow import ValidationError
+from flask import request
 
 from app.controllers.controller import Controller
 from app.interfaces.email_interface import EmailInterface

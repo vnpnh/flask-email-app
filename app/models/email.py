@@ -1,7 +1,5 @@
-from datetime import datetime
-
-from .base import BaseModel
 from ..database import db
+from .base import BaseModel
 
 
 class Email(BaseModel):

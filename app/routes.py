@@ -1,7 +1,8 @@
 from flask import Blueprint
+
 from app.constants.methods import HTTPMethod
-from app.controllers.event_controller import EventController
 from app.controllers.email_controller import EmailController
+from app.controllers.event_controller import EventController
 from app.controllers.recipient_controller import RecipientController
 from app.controllers.user_controller import UserController
 

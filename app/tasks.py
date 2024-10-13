@@ -1,9 +1,13 @@
 import logging
-from app.models.email import Email
-from app.database import db
 from datetime import datetime
+
 import pytz
 from celery import shared_task
+
+from app.database import db
+from app.models.email import Email
+from app.models.recipient import Recipient
+from app.models.user import User
 
 logger = logging.getLogger(__name__)
 
@@ -49,17 +53,47 @@ def send_single_email_task(self, email_id):
         logger.error(f"Email with ID {email_id} not found.")
         return
 
-    try:
-        send_email(email.email_subject, email.email_content, "test@email.com")
+    recipients = Recipient.query.filter_by(event_id=email.event_id).all()
+    if not recipients:
+        logger.error(f"No recipients found with event_id {email.event_id}.")
+        return
 
-        email.status = 'sent'
+    try:
+        failed_recipients = []
+        for recipient in recipients:
+            user = User.query.get(recipient.user_id)
+            if not user or not user.email_address:
+                logger.error(f"User with ID {recipient.user_id} not found or has no email address.")
+                failed_recipients.append(f"User ID {recipient.user_id} (No Email)")
+                recipient.status = 'failed'
+                db.session.commit()
+                continue
+
+            try:
+                send_email(email.email_subject, email.email_content, user.email_address)
+                logger.info(f"Email sent to {user.email_address}.")
+                recipient.status = 'sent'
+            except Exception as e:
+                logger.error(f"Failed to send email to {user.email_address}: {e}")
+                recipient.status = 'failed'
+                failed_recipients.append(user.email_address)
+
+            db.session.commit()
+
+        if not failed_recipients:
+            email.status = 'sent'
+            logger.info(f"Email (ID: {email.id}) sent successfully to all recipients.")
+        else:
+            email.status = 'partial_failure'
+            logger.warning(
+                f"Email (ID: {email.id}) sent to some recipients but failed for: {', '.join(failed_recipients)}")
+
         db.session.commit()
-        logger.info(f"Email (ID: {email.id}) sent successfully.")
 
     except Exception as e:
         email.status = 'failed'
         db.session.commit()
-        logger.error(f"Failed to send email (ID: {email.id}): {e}")
+        logger.error(f"Unexpected error while sending email (ID: {email.id}): {e}")
         raise self.retry(exc=e)
 
 

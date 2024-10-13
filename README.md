@@ -57,7 +57,7 @@ flask run
 
 ### 8. Run celery worker
 ```bash
-celery -A celery_worker worker --loglevel=info --pool=solo
+celery -A celery_worker.celery worker --loglevel=info --pool=solo
 ```
 
 ### 9. Run celery beat

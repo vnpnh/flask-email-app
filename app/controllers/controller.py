@@ -1,5 +1,6 @@
+from typing import Optional, Union
+
 from flask import jsonify
-from typing import Optional, Union, Any
 
 
 class Controller:

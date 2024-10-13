@@ -8,12 +8,11 @@ from flask_migrate import Migrate
 from app.config import Config
 from app.database import db
 from app.errors import handle_404_error, handle_500_error
-from app.routes import api_v1
-
 from app.models.email import Email
-from app.models.user import User
-from app.models.recipient import Recipient
 from app.models.event import Event
+from app.models.recipient import Recipient
+from app.models.user import User
+from app.routes import api_v1
 
 
 def create_app(config_app=Config) -> Flask:
