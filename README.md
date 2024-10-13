@@ -10,12 +10,18 @@
 
 Import postman collection from `docs` folder to test the API.
 
+## Pypi Test
+Install the package from test pypi
+```bash
+https://test.pypi.org/project/flask-email-app/
+```
+
 ## Installation
 
 ### 1. Clone the repository
 
 ```bash
-git clone git@github.com:vnpnh/jublia-interview-task.git
+git clone git@github.com:vnpnh/flask-email-app.git
 ```
 
 ### 2. Set up a Python Virtual Environment
